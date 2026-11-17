@@ -386,3 +386,43 @@ footer .logo span {
   background-position: center;
   background-repeat: no-repeat;
 }
+
+/* COURTSIDE COUSINS 2.0 - RIGHT HERO CARD PHOTOS */
+
+/* Latest News card */
+.side-stack > .side-story:first-child {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(6, 20, 42, 0.08) 0%,
+      rgba(6, 20, 42, 0.35) 45%,
+      rgba(6, 20, 42, 0.95) 100%
+    ),
+    url('/images/latest-news.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+}
+
+/* Community card */
+.side-stack > .side-story:last-child {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(6, 20, 42, 0.08) 0%,
+      rgba(6, 20, 42, 0.35) 45%,
+      rgba(6, 20, 42, 0.95) 100%
+    ),
+    url('/images/community.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: #ffffff;
+}
+
+/* Keep card text readable */
+.side-stack > .side-story h3,
+.side-stack > .side-story p {
+  color: #ffffff;
+}
