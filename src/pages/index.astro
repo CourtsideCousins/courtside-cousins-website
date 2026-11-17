@@ -34,63 +34,6 @@ const articles = [
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      font-family: "Inter", Arial, sans-serif;
-      color: #08172d;
-      background: #f5f8fc;
-    }
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { margin: 0; }
-    a { color: inherit; }
-    a:focus-visible { outline: 3px solid #248bff; outline-offset: 4px; }
-    .container { width: min(1180px, 90%); margin: auto; }
-    .topbar { background: #08172d; color: white; padding: 12px 0; font-size: 12px; letter-spacing: 2px; }
-    .nav { background: white; border-bottom: 1px solid #dce5f0; }
-    .nav-inner { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 22px 0; }
-    .logo { font-family: "Barlow Condensed", sans-serif; font-size: 30px; font-weight: 800; text-decoration: none; letter-spacing: 1px; }
-    .logo span { color: #123c77; }
-    .nav-links { display: flex; flex-wrap: wrap; gap: 22px; }
-    .nav-links a { text-decoration: none; font-size: 13px; font-weight: 700; }
-    .nav-links a:hover { color: #123c77; }
-    .hero { background: #08172d; color: white; padding: 55px 0 70px; }
-    .eyebrow { color: #85c8ff; font-size: 12px; font-weight: 800; letter-spacing: 2px; }
-    .hero h1 { font-family: "Barlow Condensed", sans-serif; font-size: clamp(48px, 7vw, 90px); line-height: 0.95; margin: 15px 0 35px; text-transform: uppercase; }
-    .hero-grid { display: grid; grid-template-columns: 1.5fr 1fr; gap: 20px; }
-    .lead, .side-story { position: relative; display: flex; flex-direction: column; justify-content: end; min-height: 260px; padding: 28px; background: linear-gradient(145deg, #123c77, #08172d); border: 1px solid #375783; border-radius: 8px; }
-    .lead { min-height: 475px; }
-    .lead h2 { font-family: "Barlow Condensed", sans-serif; font-size: clamp(35px, 4vw, 60px); line-height: 1; margin: 12px 0; }
-    .side-story h3 { font-family: "Barlow Condensed", sans-serif; font-size: 32px; line-height: 1.05; margin: 10px 0; }
-    .side-stack { display: grid; gap: 20px; }
-    .story-description { color: #d7e6f8; font-size: 14px; line-height: 1.6; }
-    section.content { padding: 65px 0; }
-    .section-heading { display: flex; align-items: center; justify-content: space-between; gap: 20px; border-bottom: 3px solid #123c77; padding-bottom: 12px; margin-bottom: 25px; }
-    .section-heading h2 { font-family: "Barlow Condensed", sans-serif; font-size: 38px; text-transform: uppercase; margin: 0; }
-    .section-heading span { color: #123c77; font-weight: 700; font-size: 13px; }
-    .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
-    .card { background: white; border: 1px solid #e0e7f0; border-radius: 8px; overflow: hidden; }
-    .card-image { height: 190px; background: linear-gradient(135deg, #123c77, #248bff); }
-    .card-body { padding: 22px; }
-    .card-label { color: #123c77; font-size: 11px; font-weight: 800; letter-spacing: 1.5px; }
-    .card h3 { font-family: "Barlow Condensed", sans-serif; font-size: 29px; line-height: 1.1; margin: 12px 0; }
-    .card p { color: #4b5b70; font-size: 14px; line-height: 1.6; }
-    .feature-band { background: #123c77; color: white; padding: 65px 0; }
-    .feature-band h2 { font-family: "Barlow Condensed", sans-serif; font-size: 45px; margin: 0 0 12px; }
-    .feature-band p { color: #eaf3ff; max-width: 650px; line-height: 1.7; }
-    .feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; }
-    .feature-box { border: 1px solid #85c8ff; border-radius: 8px; padding: 30px; }
-    footer { background: #08172d; color: white; padding: 45px 0; }
-    footer p { color: #d4dfef; font-size: 13px; line-height: 1.7; }
-    @media (max-width: 800px) {
-      .nav-inner { flex-direction: column; align-items: flex-start; }
-      .nav-links { gap: 15px; }
-      .hero-grid, .cards, .feature-grid { grid-template-columns: 1fr; }
-      .lead { min-height: 350px; }
-      .side-story { min-height: 220px; }
-      .hero { padding: 40px 0; }
-    }
-  </style>
 </head>
 <body>
   <div class="topbar">
