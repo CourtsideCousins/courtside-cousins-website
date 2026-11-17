@@ -609,3 +609,23 @@ footer .logo span {
   color: #ffffff;
   text-decoration: underline;
 }
+
+/* COURTSIDE COUSINS - FEATURED ARTICLE LINK FIX */
+
+.hero-grid a,
+.hero-grid a:visited {
+  color: #85c8ff;
+  text-decoration: none;
+}
+
+.hero-grid a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+/* Prevent purple underlines on linked content */
+.hero-grid a h2,
+.hero-grid a h3,
+.hero-grid a p {
+  text-decoration: none;
+}
