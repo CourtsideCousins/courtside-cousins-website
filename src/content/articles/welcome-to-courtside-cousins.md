@@ -2,10 +2,12 @@
 ---
 title: "Welcome to Courtside Cousins"
 description: "A new chapter in independent women's basketball coverage."
-date: 2026-11-17
-category: "community"
 author: "Courtside Cousins"
+publishDate: 2026-11-17
+category: "community"
 image: "/images/community-coverage.jpg"
+featured: true
+draft: false
 ---
 
 # Welcome to the Next Chapter
