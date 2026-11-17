@@ -137,6 +137,46 @@ const latestArticles = articles.slice(0, 6);
       </div>
     </section>
 
+<section class="latest-stories">
+  <div class="container">
+    <div class="section-heading">
+      <h2>LATEST STORIES</h2>
+      <span>FRESH FROM THE COURTSIDE COUSINS NEWSROOM</span>
+    </div>
+
+    <div class="latest-grid">
+      {latestArticles.length > 0 ? (
+        latestArticles.map((article) => (
+          <a
+            class="latest-card"
+            href={`/articles/${article.id}/`}
+          >
+            <img
+              src={article.data.image}
+              alt={article.data.title}
+              loading="lazy"
+            />
+
+            <div class="latest-card-body">
+              <span class="latest-category">
+                {article.data.category.replaceAll("-", " ").toUpperCase()}
+              </span>
+
+              <h3>{article.data.title}</h3>
+
+              <p>{article.data.description}</p>
+
+              <span class="latest-read">READ ARTICLE →</span>
+            </div>
+          </a>
+        ))
+      ) : (
+        <p>New stories are coming soon. Stay tuned!</p>
+      )}
+    </div>
+  </div>
+</section>
+
     <section class="feature-band">
       <div class="container feature-grid">
         <div class="feature-box" id="photography">
