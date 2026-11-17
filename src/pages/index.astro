@@ -3,26 +3,20 @@
 import '../styles/global.css';
 import '../styles/home.css';
 
-const articles = [
-  {
-    category: "FEATURED COVERAGE",
-    title: "The Stories Behind the Game",
-    description: "Independent journalism, original perspectives, and the moments that make women's basketball special.",
-    image: ""
-  },
-  {
-    category: "LATEST NEWS",
-    title: "Around Women's Basketball",
-    description: "Coverage from across the women's basketball community.",
-    image: ""
-  },
-  {
-    category: "COMMUNITY",
-    title: "More Than Fans. We're Cousins.",
-    description: "Celebrating the people and culture that make the game bigger.",
-    image: ""
-  }
-];
+
+import { getCollection } from 'astro:content';
+
+const articles = (await getCollection('articles', ({ data }) =>
+  !data.draft
+)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+
+const featuredArticle =
+  articles.find((article) => article.data.featured) ?? articles[0];
+
+const latestArticles = articles.slice(0, 6);
+
 ---
 
 <!doctype html>
@@ -59,23 +53,53 @@ const articles = [
       <div class="container">
         <div class="eyebrow">WELCOME TO THE NEXT CHAPTER</div>
         <h1>MORE THAN THE GAME.</h1>
-        <div class="hero-grid">
-          <article class="lead">
-            <div class="eyebrow">{articles[0].category}</div>
-            <h2>{articles[0].title}</h2>
-            <p class="story-description">{articles[0].description}</p>
-          </article>
-          <div class="side-stack">
-            {articles.slice(1).map((article) => (
-              <article class="side-story">
-                <div class="eyebrow">{article.category}</div>
-                <h3>{article.title}</h3>
-                <p class="story-description">{article.description}</p>
-              </article>
-            ))}
-          </div>
-        </div>
+        
+<div class="hero-grid">
+  {featuredArticle ? (
+    <a
+      class="lead"
+      href={`/articles/${featuredArticle.id}/`}
+    >
+      <div class="eyebrow">
+        {featuredArticle.data.category.replaceAll('-', ' ').toUpperCase()}
       </div>
+      <h2>{featuredArticle.data.title}</h2>
+      <p class="story-description">
+        {featuredArticle.data.description}
+      </p>
+      <span class="read-more">READ ARTICLE →</span>
+    </a>
+  ) : (
+    <article class="lead">
+      <div class="eyebrow">COURTSIDE COUSINS</div>
+      <h2>Every Game Has a Story.</h2>
+      <p class="story-description">
+        Independent women's basketball coverage.
+      </p>
+    </article>
+  )}
+
+  <div class="side-stack">
+    {articles
+      .filter((article) => article.id !== featuredArticle?.id)
+      .slice(0, 2)
+      .map((article) => (
+        <a
+          class="side-story"
+          href={`/articles/${article.id}/`}
+        >
+          <div class="eyebrow">
+            {article.data.category.replaceAll('-', ' ').toUpperCase()}
+          </div>
+          <h3>{article.data.title}</h3>
+          <p class="story-description">
+            {article.data.description}
+          </p>
+        </a>
+      ))}
+  </div>
+</div>
+
     </section>
 
     <section class="content" id="latest">
