@@ -1,0 +1,237 @@
+
+---
+import "../../styles/global.css";
+import { getCollection } from "astro:content";
+
+const articles = (await getCollection("articles", ({ data }) =>
+  data.category === "community" && !data.draft
+)).sort(
+  (a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf()
+);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community \| Courtside Cousins</title>
+    <meta name="description" content="Player interviews, profiles, and original stories from Courtside Cousins." />
+  </head>
+
+  <body>
+    <div class="topbar">INDEPENDENT WOMEN'S BASKETBALL MEDIA</div>
+
+    <header class="site-header">
+      <a href="/" class="brand">COURTSIDE <span>COUSINS</span></a>
+      <nav>
+        <a href="/">HOME</a>
+        <a href="/#latest">COVERAGE</a>
+        <a href="/#photography">PHOTOGRAPHY</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="page-hero">
+        <div class="container">
+          <p class="eyebrow">THE COURTSIDE COUSINS NEWSROOM</p>
+          <h1>COMMUNITY.</h1>
+          <p class="intro">
+            More than the game. We're celebrating the fans,
+  communities, and unforgettable moments that make
+  women's basketball special. Because here,
+  we're all cousins.
+          </p>
+        </div>
+      </section>
+
+      <section class="stories">
+        <div class="container">
+          <div class="section-heading">
+            <h2>BEYOND THE COURT</h2>
+            <span>FAN CULTURE & COMMUNITY</span>
+          </div>
+
+          <div class="story-grid">
+            {articles.length > 0 ? (
+              articles.map((article) => (
+                <a class="story-card" href={`/articles/${article.id}/`}>
+                  <img
+                    src={article.data.image}
+                    alt={article.data.title}
+                  />
+                  <div class="story-body">
+                    <p class="category">COMMUNITY</p>
+                    <h3>{article.data.title}</h3>
+                    <p>{article.data.description}</p>
+                    <span class="read-more">READ ARTICLE →</span>
+                  </div>
+                </a>
+              ))
+            ) : (
+              <div class="empty-state">
+                <h3>We're All Cousins Here.</h3>
+                <p>
+                  From fan experiences to community events,
+  we're sharing the stories that bring
+  the women's basketball family together.
+                </p>
+                <span>COMMUNITY STORIES COMING SOON</span>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      © 2026 Courtside Cousins. All rights reserved.
+    </footer>
+  </body>
+</html>
+
+<style>
+  :global(body) {
+    margin: 0;
+    background: #f4f7fb;
+    color: #07172e;
+    font-family: Arial, sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  a { text-decoration: none; }
+
+  .container { width: min(1180px, 90%); margin: auto; }
+
+  .topbar {
+    background: #07172e;
+    color: white;
+    padding: 14px 5%;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  .site-header {
+    background: white;
+    padding: 28px 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .brand {
+    color: #07172e;
+    font-size: 23px;
+    font-weight: 900;
+  }
+
+  .brand span { color: #216bd0; }
+
+  nav { display: flex; gap: 24px; flex-wrap: wrap; }
+  nav a { color: #07172e; font-size: 12px; font-weight: bold; }
+
+  .page-hero {
+    background: #07172e;
+    color: white;
+    padding: 85px 0;
+  }
+
+  .eyebrow, .category {
+    color: #65b7ff;
+    font-size: 13px;
+    font-weight: 800;
+    letter-spacing: 2px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 92px);
+    margin: 20px 0;
+    line-height: 1;
+    font-weight: 900;
+  }
+
+  .intro {
+    font-size: 19px;
+    line-height: 1.7;
+    max-width: 690px;
+  }
+
+  .stories { padding: 75px 0 100px; }
+
+  .section-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #173f78;
+    padding-bottom: 20px;
+    margin-bottom: 30px;
+    gap: 20px;
+  }
+
+  .section-heading h2 { font-size: 32px; margin: 0; }
+  .section-heading span { font-size: 13px; }
+
+  .story-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+  }
+
+  .story-card, .empty-state {
+    background: white;
+    border: 1px solid #d6e1f0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .story-card {
+    display: block;
+    color: inherit;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 28px rgba(7, 23, 46, 0.16);
+  }
+
+  .story-card:focus-visible {
+    outline: 3px solid #216bd0;
+    outline-offset: 4px;
+  }
+
+  .story-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .story-body, .empty-state { padding: 24px; }
+
+  .story-body .category { color: #216bd0; }
+  .story-body h3 { font-size: 26px; margin: 12px 0; }
+  .story-body p { line-height: 1.6; }
+
+  .read-more, .empty-state span {
+    display: inline-block;
+    margin-top: 16px;
+    color: #216bd0;
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 1px;
+  }
+
+  footer {
+    background: #07172e;
+    color: white;
+    padding: 45px 5%;
+  }
+
+  @media (max-width: 800px) {
+    .site-header { flex-direction: column; align-items: flex-start; }
+    .story-grid { grid-template-columns: 1fr; }
+    .section-heading { flex-direction: column; align-items: flex-start; }
+  }
+</style>
