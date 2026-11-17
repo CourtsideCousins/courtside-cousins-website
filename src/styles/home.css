@@ -427,23 +427,22 @@ footer .logo span {
   color: #ffffff;
 }
 
+
 /* COURTSIDE COUSINS 2.0 - COVERAGE CATEGORY PHOTOS */
 
-.coverage-card:nth-child(1) .card-image {
-  background-image: url('/images/game-coverage.jpg');
+.cards > .card:nth-child(1) .card-image {
+  background: url('/images/game-coverage.jpg') center / cover no-repeat;
 }
 
-.coverage-card:nth-child(2) .card-image {
-  background-image: url('/images/player-stories.jpg');
+.cards > .card:nth-child(2) .card-image {
+  background: url('/images/player-stories.jpg') center / cover no-repeat;
 }
 
-.coverage-card:nth-child(3) .card-image {
-  background-image: url('/images/community-coverage.jpg');
+.cards > .card:nth-child(3) .card-image {
+  background: url('/images/community-coverage.jpg') center / cover no-repeat;
 }
 
-.coverage-card .card-image {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+.cards > .card .card-image {
   min-height: 180px;
 }
+
