@@ -587,3 +587,25 @@ footer .logo span {
     min-height: 350px;
   }
 }
+/* COURTSIDE COUSINS - FOOTER BRANDING */
+
+footer .logo {
+  color: #ffffff !important;
+}
+
+footer .logo span {
+  color: #85c8ff !important;
+}
+/* COURTSIDE COUSINS - FEATURED ARTICLE LINK */
+
+.hero-grid .lead a,
+.hero-grid .lead a:visited {
+  color: #85c8ff;
+  text-decoration: none;
+  font-weight: 800;
+}
+
+.hero-grid .lead a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
