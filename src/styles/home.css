@@ -335,3 +335,37 @@ footer .logo span {
   }
 }
 
+
+/* COURTSIDE COUSINS 2.0 — HERO TYPOGRAPHY */
+
+.hero-grid .lead h2 {
+  font-size: clamp(32px, 3.5vw, 52px);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 14px 0 18px;
+  color: #ffffff;
+}
+
+.side-stack .side-story h3 {
+  font-size: clamp(24px, 2.2vw, 32px);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 12px 0 16px;
+  color: #ffffff;
+}
+
+.hero-grid .story-description {
+  font-size: 16px;
+  line-height: 1.65;
+  max-width: 580px;
+  color: #e4efff;
+}
+
+.hero-grid .eyebrow {
+  color: #85c8ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
