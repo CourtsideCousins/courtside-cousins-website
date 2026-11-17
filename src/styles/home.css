@@ -85,8 +85,9 @@
 
 .hero-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 20px;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
+  width: 100%;
 }
 
 .hero-side {
@@ -557,5 +558,32 @@ footer .logo span {
 @media (max-width: 600px) {
   .latest-grid {
     grid-template-columns: 1fr;
+  }
+}
+/* COURTSIDE COUSINS - HOMEPAGE HERO LAYOUT */
+
+.hero-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.hero-grid > .lead {
+  width: 100%;
+  min-height: 500px;
+  box-sizing: border-box;
+}
+
+.hero-grid > .lead h2 {
+  max-width: 900px;
+}
+
+.hero-grid > .lead .story-description {
+  max-width: 750px;
+}
+
+/* Keep hero responsive on smaller screens */
+
+@media (max-width: 800px) {
+  .hero-grid > .lead {
+    min-height: 350px;
   }
 }
