@@ -474,3 +474,88 @@ footer .logo span {
   outline: 3px solid #2585ff;
   outline-offset: 4px;
 }
+
+/* LATEST STORIES */
+
+.latest-stories {
+  padding: 80px 0;
+  background: #f4f7fb;
+}
+
+.latest-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 26px;
+  margin-top: 32px;
+}
+
+.latest-card {
+  display: block;
+  background: #ffffff;
+  border: 1px solid #d6e1f0;
+  border-radius: 10px;
+  overflow: hidden;
+  color: #07172e;
+  text-decoration: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.latest-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(7, 23, 46, 0.14);
+}
+
+.latest-card img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+  display: block;
+}
+
+.latest-card-body {
+  padding: 24px;
+}
+
+.latest-category {
+  color: #216bd0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.latest-card h3 {
+  margin: 12px 0;
+  font-size: 25px;
+  line-height: 1.2;
+}
+
+.latest-card p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.latest-read {
+  display: inline-block;
+  margin-top: 20px;
+  color: #216bd0;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+
+.latest-card:focus-visible {
+  outline: 3px solid #216bd0;
+  outline-offset: 4px;
+}
+
+@media (max-width: 900px) {
+  .latest-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .latest-grid {
+    grid-template-columns: 1fr;
+  }
+}
