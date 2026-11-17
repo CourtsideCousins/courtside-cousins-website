@@ -1,0 +1,265 @@
+
+/* COURTSIDE COUSINS 2.0 — HOMEPAGE */
+
+.container {
+  width: min(1180px, 90%);
+  margin-inline: auto;
+}
+
+/* Top announcement bar */
+.topbar {
+  background: #08172d;
+  color: #ffffff;
+  padding: 12px 0;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+/* Navigation */
+.nav {
+  background: #ffffff;
+  border-bottom: 1px solid #dce5f0;
+}
+
+.nav-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 24px;
+  padding: 22px 0;
+}
+
+.logo {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  text-decoration: none;
+  color: #08172d;
+}
+
+.logo span {
+  color: #123c77;
+}
+
+.nav-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 22px;
+}
+
+.nav-links a {
+  color: #08172d;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.nav-links a:hover {
+  color: #248bff;
+}
+
+/* Editorial hero */
+.hero {
+  background: #08172d;
+  color: #ffffff;
+  padding: 55px 0 70px;
+}
+
+.eyebrow {
+  color: #85c8ff;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: clamp(48px, 7vw, 90px);
+  font-weight: 800;
+  line-height: 1;
+  margin: 20px 0 35px;
+  text-transform: uppercase;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 20px;
+}
+
+.hero-side {
+  display: grid;
+  gap: 20px;
+}
+
+.hero-card {
+  background: linear-gradient(135deg, #173f78, #08172d);
+  border: 1px solid #38659b;
+  border-radius: 8px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  min-height: 240px;
+}
+
+.hero-card.featured {
+  min-height: 500px;
+}
+
+.hero-card h2 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: clamp(30px, 3vw, 48px);
+  line-height: 1.1;
+  margin: 16px 0;
+}
+
+.hero-card h3 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 30px;
+  margin: 12px 0;
+}
+
+.hero-card p {
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Content sections */
+.content {
+  padding: 65px 0;
+  background: #f5f8fc;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 3px solid #123c77;
+  margin-bottom: 26px;
+  padding-bottom: 14px;
+}
+
+.section-heading h2 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 38px;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.section-heading a {
+  color: #123c77;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+}
+
+/* News cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.card {
+  background: #ffffff;
+  border: 1px solid #dce5f0;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-image {
+  height: 180px;
+  background: linear-gradient(135deg, #123c77, #248bff);
+}
+
+.card-body {
+  padding: 22px;
+}
+
+.card-body h3 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 28px;
+  line-height: 1.1;
+  margin: 14px 0;
+}
+
+.card-body p {
+  color: #4b5b70;
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+/* Photography and podcast */
+.feature-band {
+  background: #123c77;
+  color: #ffffff;
+  padding: 65px 0;
+}
+
+.feature-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+}
+
+.feature-box {
+  border: 1px solid #85c8ff;
+  border-radius: 8px;
+  padding: 30px;
+}
+
+.feature-box h2 {
+  font-family: "Barlow Condensed", Impact, sans-serif;
+  font-size: 42px;
+  margin: 10px 0 18px;
+}
+
+.feature-box p {
+  line-height: 1.7;
+}
+
+/* Footer */
+footer {
+  background: #08172d;
+  color: #ffffff;
+  padding: 50px 0;
+}
+
+footer p {
+  font-size: 14px;
+}
+
+/* Mobile layout */
+@media (max-width: 800px) {
+  .nav-inner {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links {
+    gap: 15px;
+  }
+
+  .hero-grid,
+  .cards,
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-card.featured {
+    min-height: 350px;
+  }
+
+  .hero-card {
+    min-height: 220px;
+  }
+
+  .section-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
