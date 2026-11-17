@@ -1,0 +1,121 @@
+
+/* COURTSIDE COUSINS 2.0
+   Global Brand Design System */
+
+:root {
+  /* Brand colors */
+  --cc-midnight: #08172d;
+  --cc-navy: #123c77;
+  --cc-blue: #248bff;
+  --cc-ice: #85c8ff;
+  --cc-white: #ffffff;
+  --cc-background: #f5f8fc;
+
+  /* Text colors */
+  --cc-text: #08172d;
+  --cc-muted: #4b5b70;
+  --cc-border: #dce5f0;
+
+  /* Typography */
+  --cc-font-heading: "Barlow Condensed", Impact, sans-serif;
+  --cc-font-body: "Inter", Arial, sans-serif;
+
+  /* Layout */
+  --cc-max-width: 1180px;
+  --cc-radius: 8px;
+  --cc-section-spacing: 65px;
+}
+
+/* Consistent sizing */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Base accessibility and typography */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: var(--cc-background);
+  color: var(--cc-text);
+  font-family: var(--cc-font-body);
+  line-height: 1.6;
+}
+
+img, video {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+button, input, textarea, select {
+  font: inherit;
+}
+
+a {
+  text-underline-offset: 3px;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 3px solid var(--cc-blue);
+  outline-offset: 4px;
+}
+
+/* Shared editorial typography */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--cc-font-heading);
+  line-height: 1.1;
+}
+
+.cc-container {
+  width: min(var(--cc-max-width), 90%);
+  margin-inline: auto;
+}
+
+/* Brand utilities */
+.cc-eyebrow {
+  color: var(--cc-navy);
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cc-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 12px 22px;
+  border: 2px solid var(--cc-navy);
+  border-radius: var(--cc-radius);
+  background: var(--cc-navy);
+  color: var(--cc-white);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.cc-button:hover {
+  background: var(--cc-midnight);
+  border-color: var(--cc-midnight);
+}
+
+/* Respect reduced-motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+/* Responsive spacing */
+@media (max-width: 800px) {
+  :root {
+    --cc-section-spacing: 40px;
+  }
+}
