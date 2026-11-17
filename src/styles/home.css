@@ -369,3 +369,20 @@ footer .logo span {
   letter-spacing: 2px;
   text-transform: uppercase;
 }
+
+/* COURTSIDE COUSINS 2.0 - FEATURED HERO PHOTO */
+
+.hero-grid > .lead {
+  background-image:
+    linear-gradient(
+      to bottom,
+      rgba(8, 23, 45, 0.05) 0%,
+      rgba(8, 23, 45, 0.25) 45%,
+      rgba(8, 23, 45, 0.95) 100%
+    ),
+    url('/images/featured-coverage.jpg');
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
