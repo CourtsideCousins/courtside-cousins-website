@@ -1,0 +1,131 @@
+
+---
+import '../styles/global.css';
+
+const galleries = [
+  {
+    title: 'WNBA',
+    description: 'Game action, press conferences, and moments from around the league.',
+    image: '/images/wnba-gallery.jpg',
+    category: 'PRO BASKETBALL',
+  },
+  {
+    title: 'Unrivaled',
+    description: 'An up-close look at the players, atmosphere, and culture of Unrivaled.',
+    image: '/images/unrivaled-gallery.jpg',
+    category: '3-ON-3 BASKETBALL',
+  },
+  {
+    title: 'Athletes Unlimited',
+    description: 'Original photography from AU Pro Basketball.',
+    image: '/images/au-gallery.jpg',
+    category: 'PRO BASKETBALL',
+  },
+  {
+    title: 'NCAA Women's Basketball',
+    description: 'College basketball captured from courtside.',
+    image: '/images/ncaa-gallery.jpg',
+    category: 'COLLEGE BASKETBALL',
+  },
+];
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Photography | Courtside Cousins</title>
+    <meta name="description" content="Explore original women's basketball photography by Courtside Cousins." />
+    <style>
+      .photo-hero { background: #07172d; color: white; padding: 85px 0; }
+      .photo-container { width: min(1180px, 90%); margin: auto; }
+      .photo-eyebrow { color: #65b7ff; font-weight: 800; letter-spacing: 2px; font-size: 13px; }
+      .photo-hero h1 { font-size: clamp(48px, 8vw, 90px); margin: 18px 0; line-height: 1; }
+      .photo-hero p { max-width: 700px; font-size: 18px; line-height: 1.7; }
+      .gallery-section { background: #f3f6fb; padding: 75px 0 100px; }
+      .gallery-heading { border-bottom: 3px solid #173d78; padding-bottom: 18px; margin-bottom: 30px; }
+      .gallery-heading h2 { margin: 0; color: #07172d; font-size: 32px; }
+      .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px; }
+      .gallery-card { display: block; background: white; border: 1px solid #d4dfef; border-radius: 8px; overflow: hidden; text-decoration: none; color: #07172d; transition: transform .2s; }
+      .gallery-card:hover { transform: translateY(-5px); }
+      .gallery-image { width: 100%; height: 270px; object-fit: cover; display: block; background: #173d78; }
+      .gallery-body { padding: 25px; }
+      .gallery-category { color: #2469d8; font-size: 12px; font-weight: 800; letter-spacing: 2px; }
+      .gallery-body h3 { font-size: 27px; margin: 12px 0; }
+      .gallery-body p { line-height: 1.6; }
+      .gallery-link { display: inline-block; margin-top: 15px; color: #2469d8; font-weight: 800; }
+      .photo-footer { background: #07172d; color: white; padding: 45px 0; }
+      @media (max-width: 700px) {
+        .gallery-grid { grid-template-columns: 1fr; }
+        .photo-hero { padding: 65px 0; }
+      }
+    </style>
+  </head>
+  <body>
+    <div style="background:#07172d;color:white;padding:14px 5%;font-size:12px;font-weight:800;letter-spacing:2px;">
+      INDEPENDENT WOMEN'S BASKETBALL MEDIA
+    </div>
+
+    <header style="background:white;padding:28px 5%;">
+      <nav style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
+        <a href="/" style="font-size:24px;font-weight:900;color:#07172d;text-decoration:none;">
+          COURTSIDE <span style="color:#2469d8;">COUSINS</span>
+        </a>
+        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+          <a href="/">HOME</a>
+          <a href="/#latest">COVERAGE</a>
+          <a href="/photography">PHOTOGRAPHY</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="photo-hero">
+        <div class="photo-container">
+          <div class="photo-eyebrow">THROUGH OUR LENS</div>
+          <h1>COURTSIDE PHOTOGRAPHY.</h1>
+          <p>
+            Every game has a story. From unforgettable plays to the moments
+            beyond the final buzzer, explore women's basketball through
+            the Courtside Cousins lens.
+          </p>
+        </div>
+      </section>
+
+      <section class="gallery-section">
+        <div class="photo-container">
+          <div class="gallery-heading">
+            <h2>EXPLORE OUR GALLERIES</h2>
+          </div>
+
+          <div class="gallery-grid">
+            {galleries.map((gallery) => (
+              <article class="gallery-card">
+                <img
+                  class="gallery-image"
+                  src={gallery.image}
+                  alt={`${gallery.title} photography`}
+                  loading="lazy"
+                />
+                <div class="gallery-body">
+                  <div class="gallery-category">{gallery.category}</div>
+                  <h3>{gallery.title}</h3>
+                  <p>{gallery.description}</p>
+                  <span class="gallery-link">GALLERY COMING SOON →</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="photo-footer">
+      <div class="photo-container">
+        <strong>COURTSIDE COUSINS</strong>
+        <p>Independent coverage. Original storytelling. A community connected by the game.</p>
+        <p>© 2026 Courtside Cousins. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
