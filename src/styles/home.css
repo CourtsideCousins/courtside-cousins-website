@@ -262,4 +262,38 @@ footer p {
     align-items: flex-start;
     flex-direction: column;
   }
+/* COURTSIDE COUSINS 2.0 — HERO CARD REFINEMENTS */
+
+.hero-grid > .hero-card,
+.hero-side > .hero-card {
+  background: linear-gradient(
+    145deg,
+    #173f78 0%,
+    #102b52 55%,
+    #08172d 100%
+  );
+  border: 1px solid #38659b;
+  border-radius: 8px;
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+.hero-grid > .hero-card {
+  min-height: 500px;
+}
+
+.hero-side > .hero-card {
+  min-height: 240px;
+}
+
+/* Keep footer branding visible */
+footer .logo {
+  color: #ffffff;
+}
+
+footer .logo span {
+  color: #85c8ff;
+}
 }
