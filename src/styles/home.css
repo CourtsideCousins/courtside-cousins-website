@@ -426,3 +426,24 @@ footer .logo span {
 .side-stack > .side-story p {
   color: #ffffff;
 }
+
+/* COURTSIDE COUSINS 2.0 - COVERAGE CATEGORY PHOTOS */
+
+.coverage-card:nth-child(1) .card-image {
+  background-image: url('/images/game-coverage.jpg');
+}
+
+.coverage-card:nth-child(2) .card-image {
+  background-image: url('/images/player-stories.jpg');
+}
+
+.coverage-card:nth-child(3) .card-image {
+  background-image: url('/images/community-coverage.jpg');
+}
+
+.coverage-card .card-image {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  min-height: 180px;
+}
