@@ -679,3 +679,8 @@ footer .logo span {
     display: none;
   }
 }
+
+/* Pause achievement ticker on hover */
+.achievement-marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
