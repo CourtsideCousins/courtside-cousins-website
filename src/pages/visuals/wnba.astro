@@ -1,0 +1,530 @@
+
+---
+import '../../styles/global.css';
+
+const galleries = [
+  {
+    id: 'dream-liberty-2026',
+    title: 'Atlanta Dream vs. New York Liberty',
+    date: '2026-10-22',
+    season: '2026',
+    teams: ['Atlanta Dream', 'New York Liberty'],
+    photos: 200,
+    videos: 2,
+  },
+  {
+    id: 'dream-valkyries-2026',
+    title: 'Atlanta Dream vs. Golden State Valkyries',
+    date: '2026-10-18',
+    season: '2026',
+    teams: ['Atlanta Dream', 'Golden State Valkyries'],
+    photos: 185,
+    videos: 1,
+  },
+  {
+    id: 'dream-sparks-2026',
+    title: 'Atlanta Dream vs. Los Angeles Sparks',
+    date: '2026-08-25',
+    season: '2026',
+    teams: ['Atlanta Dream', 'Los Angeles Sparks'],
+    photos: 210,
+    videos: 1,
+  },
+  {
+    id: 'dream-2025',
+    title: 'Atlanta Dream Season Highlights',
+    date: '2025-09-10',
+    season: '2025',
+    teams: ['Atlanta Dream'],
+    photos: 150,
+    videos: 2,
+  },
+];
+
+const sortedGalleries = [...galleries].sort(
+  (a, b) => b.date.localeCompare(a.date)
+);
+
+const seasons = [...new Set(galleries.map(g => g.season))]
+  .sort((a, b) => b.localeCompare(a));
+
+const teams = [...new Set(galleries.flatMap(g => g.teams))]
+  .sort((a, b) => a.localeCompare(b));
+
+const formatDate = (date) =>
+  new Date(`${date}T12:00:00Z`).toLocaleDateString(
+    'en-US',
+    {
+      month: 'long',
+      day: 'numeric',
+      year: 'numeric',
+      timeZone: 'UTC',
+    }
+  );
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Explore Courtside Cousins WNBA photography and video galleries. Browse by season and team."
+    />
+    <title>WNBA Visuals | Courtside Cousins</title>
+
+    <style>
+      .wnba-page {
+        background: #f3f6fb;
+        min-height: 100vh;
+      }
+
+      .wnba-container {
+        width: min(1180px, 90%);
+        margin: 0 auto;
+      }
+
+      .wnba-topbar {
+        background: #07172d;
+        color: white;
+        padding: 14px 5%;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+
+      .wnba-header {
+        background: white;
+        padding: 25px 5%;
+      }
+
+      .wnba-nav {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .wnba-logo {
+        color: #07172d;
+        text-decoration: none;
+        font-size: 24px;
+        font-weight: 900;
+      }
+
+      .wnba-logo span {
+        color: #2469d8;
+      }
+
+      .wnba-navlinks {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 24px;
+      }
+
+      .wnba-navlinks a {
+        color: #07172d;
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      .wnba-navlinks a:hover {
+        color: #2469d8;
+      }
+
+      .wnba-hero {
+        background:
+          radial-gradient(
+            circle at 85% 15%,
+            rgba(36,105,216,.35),
+            transparent 40%
+          ),
+          linear-gradient(135deg, #07172d, #123a70);
+        color: white;
+        padding: 85px 0 95px;
+      }
+
+      .wnba-eyebrow {
+        color: #65b7ff;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 3px;
+      }
+
+      .wnba-hero h1 {
+        font-size: clamp(46px, 7vw, 88px);
+        line-height: 1;
+        margin: 18px 0;
+        letter-spacing: -2px;
+      }
+
+      .wnba-hero h1 span {
+        color: #65b7ff;
+      }
+
+      .wnba-hero p {
+        max-width: 720px;
+        font-size: 18px;
+        line-height: 1.8;
+        color: #d6e4f6;
+      }
+
+      .wnba-back {
+        display: inline-block;
+        color: #65b7ff;
+        text-decoration: none;
+        font-weight: 800;
+        margin-bottom: 30px;
+      }
+
+      .wnba-main {
+        padding: 75px 0 100px;
+      }
+
+      .wnba-section-heading {
+        margin-bottom: 30px;
+      }
+
+      .wnba-section-heading h2 {
+        color: #07172d;
+        font-size: clamp(30px, 4vw, 43px);
+        margin: 0 0 12px;
+      }
+
+      .wnba-section-heading p {
+        color: #526078;
+        line-height: 1.7;
+      }
+
+      .wnba-filters {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 18px;
+        align-items: end;
+        background: white;
+        border: 1px solid #d4dfef;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+      }
+
+      .wnba-filter {
+        flex: 1 1 220px;
+      }
+
+      .wnba-filter label {
+        display: block;
+        color: #07172d;
+        font-weight: 900;
+        font-size: 12px;
+        letter-spacing: 1px;
+        margin-bottom: 10px;
+      }
+
+      .wnba-filter select {
+        width: 100%;
+        padding: 13px;
+        border: 1px solid #bfcde0;
+        border-radius: 6px;
+        background: white;
+        color: #07172d;
+        font: inherit;
+        cursor: pointer;
+      }
+
+      .wnba-count {
+        display: flex;
+        justify-content: space-between;
+        gap: 15px;
+        flex-wrap: wrap;
+        margin: 25px 0;
+        color: #526078;
+        font-size: 14px;
+        font-weight: 700;
+      }
+
+      .wnba-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+      }
+
+      .wnba-card {
+        background: white;
+        border: 1px solid #d4dfef;
+        border-radius: 12px;
+        overflow: hidden;
+      }
+
+      .wnba-card-cover {
+        min-height: 220px;
+        background: linear-gradient(135deg, #0b2445, #2469d8);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 25px;
+      }
+
+      .wnba-card-cover span {
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      .wnba-card-cover strong {
+        font-size: clamp(23px, 3vw, 34px);
+        line-height: 1.1;
+      }
+
+      .wnba-card-body {
+        padding: 25px;
+      }
+
+      .wnba-card-date {
+        color: #2469d8;
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 1px;
+      }
+
+      .wnba-card-body h3 {
+        color: #07172d;
+        font-size: 24px;
+        margin: 12px 0;
+      }
+
+      .wnba-card-meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 18px;
+      }
+
+      .wnba-card-meta span {
+        background: #edf4ff;
+        color: #173d78;
+        padding: 8px 11px;
+        border-radius: 5px;
+        font-size: 11px;
+        font-weight: 800;
+      }
+
+      .wnba-card-note {
+        display: block;
+        color: #2469d8;
+        font-size: 12px;
+        font-weight: 900;
+        margin-top: 25px;
+      }
+
+      .wnba-empty {
+        display: none;
+        text-align: center;
+        padding: 50px 20px;
+        background: white;
+        border-radius: 12px;
+        color: #526078;
+      }
+
+      .wnba-footer {
+        background: #07172d;
+        color: white;
+        padding: 45px 0;
+      }
+
+      .wnba-footer p {
+        color: #c6d5e8;
+      }
+
+      @media (max-width: 750px) {
+        .wnba-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .wnba-hero {
+          padding: 65px 0;
+        }
+
+        .wnba-hero h1 {
+          letter-spacing: -1px;
+        }
+      }
+    </style>
+  </head>
+
+  <body class="wnba-page">
+    <div class="wnba-topbar">
+      INDEPENDENT WOMEN'S BASKETBALL MEDIA
+    </div>
+
+    <header class="wnba-header">
+      <nav class="wnba-nav" aria-label="Main navigation">
+        <a class="wnba-logo" href="/">
+          COURTSIDE <span>COUSINS</span>
+        </a>
+
+        <div class="wnba-navlinks">
+          <a href="/">HOME</a>
+          <a href="/#latest">COVERAGE</a>
+          <a href="/photography">VISUALS</a>
+        </div>
+      </nav>
+    </header>
+
+    <main>
+      <section class="wnba-hero">
+        <div class="wnba-container">
+          <a class="wnba-back" href="/photography">
+            ← BACK TO COURTSIDE VISUALS
+          </a>
+
+          <div class="wnba-eyebrow">
+            COURTSIDE VISUALS / WNBA
+          </div>
+
+          <h1>THE WNBA,<br /><span>THROUGH OUR LENS.</span></h1>
+
+          <p>
+            From unforgettable plays to the moments between
+            the action, explore our WNBA photography,
+            highlight films, and original productions.
+          </p>
+        </div>
+      </section>
+
+      <section class="wnba-main">
+        <div class="wnba-container">
+          <div class="wnba-section-heading">
+            <h2>LATEST GALLERIES</h2>
+            <p>
+              Explore our most recent coverage or filter
+              galleries by season and team.
+            </p>
+          </div>
+
+          <div class="wnba-filters">
+            <div class="wnba-filter">
+              <label for="season-filter">SEASON</label>
+              <select id="season-filter">
+                <option value="all">All Seasons</option>
+                {seasons.map((season) => (
+                  <option value={season}>{season}</option>
+                ))}
+              </select>
+            </div>
+
+            <div class="wnba-filter">
+              <label for="team-filter">TEAM</label>
+              <select id="team-filter">
+                <option value="all">All Teams</option>
+                {teams.map((team) => (
+                  <option value={team}>{team}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div class="wnba-count">
+            <span id="gallery-count">
+              {sortedGalleries.length} GALLERIES
+            </span>
+            <span>NEWEST FIRST ↓</span>
+          </div>
+
+          <div class="wnba-grid" id="gallery-grid">
+            {sortedGalleries.map((gallery) => (
+              <article
+                class="wnba-card"
+                data-season={gallery.season}
+                data-teams={gallery.teams.join('|')}
+              >
+                <div class="wnba-card-cover">
+                  <span>WNBA · {gallery.season}</span>
+                  <strong>{gallery.title}</strong>
+                </div>
+
+                <div class="wnba-card-body">
+                  <div class="wnba-card-date">
+                    {formatDate(gallery.date)}
+                  </div>
+
+                  <h3>{gallery.title}</h3>
+
+                  <div class="wnba-card-meta">
+                    <span>📸 {gallery.photos} PHOTOS</span>
+                    <span>🎬 {gallery.videos} VIDEOS</span>
+                  </div>
+
+                  <span class="wnba-card-note">
+                    SAMPLE GALLERY · COMING SOON
+                  </span>
+                </div>
+              </article>
+            ))}
+          </div>
+
+          <div class="wnba-empty" id="empty-message">
+            No galleries match those filters.
+            Try another season or team.
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="wnba-footer">
+      <div class="wnba-container">
+        <strong>COURTSIDE COUSINS</strong>
+        <p>
+          Independent coverage. Original storytelling.
+          A community connected by the game.
+        </p>
+        <p>© 2026 Courtside Cousins. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const seasonFilter = document.querySelector('#season-filter');
+      const teamFilter = document.querySelector('#team-filter');
+      const cards = document.querySelectorAll('.wnba-card');
+      const count = document.querySelector('#gallery-count');
+      const empty = document.querySelector('#empty-message');
+
+      function filterGalleries() {
+        const season = seasonFilter?.value ?? 'all';
+        const team = teamFilter?.value ?? 'all';
+        let visible = 0;
+
+        cards.forEach((card) => {
+          const matchesSeason =
+            season === 'all' || card.dataset.season === season;
+
+          const cardTeams = (card.dataset.teams ?? '').split('|');
+          const matchesTeam =
+            team === 'all' || cardTeams.includes(team);
+
+          const show = matchesSeason && matchesTeam;
+          card.hidden = !show;
+
+          if (show) visible++;
+        });
+
+        if (count) {
+          count.textContent = `${visible} ${
+            visible === 1 ? 'GALLERY' : 'GALLERIES'
+          }`;
+        }
+
+        if (empty) {
+          empty.style.display = visible === 0 ? 'block' : 'none';
+        }
+      }
+
+      seasonFilter?.addEventListener('change', filterGalleries);
+      teamFilter?.addEventListener('change', filterGalleries);
+    </script>
+  </body>
+</html>
