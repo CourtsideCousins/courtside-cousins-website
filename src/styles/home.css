@@ -629,3 +629,53 @@ footer .logo span {
 .hero-grid a p {
   text-decoration: none;
 }
+
+/* COURTSIDE COUSINS - ACHIEVEMENT MARQUEE */
+
+.achievement-marquee {
+  background: #19437e;
+  color: #ffffff;
+  overflow: hidden;
+  padding: 14px 0;
+  width: 100%;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee-scroll 24s linear infinite;
+}
+
+.marquee-track span {
+  flex-shrink: 0;
+  padding-right: 50px;
+  white-space: nowrap;
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+}
+
+@keyframes marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+    width: auto;
+    flex-wrap: wrap;
+  }
+
+  .marquee-track span {
+    white-space: normal;
+  }
+
+  .marquee-track span[aria-hidden="true"] {
+    display: none;
+  }
+}
