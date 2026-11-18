@@ -1,0 +1,194 @@
+
+---
+import '../../../styles/global.css';
+
+export function getStaticPaths() {
+  return [
+    {
+      params: { slug: 'sample-game' },
+      props: {
+        gallery: {
+          title: 'Sample WNBA Game Gallery',
+          date: '2026 Season',
+          photographer: 'Shotxkris',
+          photos: [],
+          videos: []
+        }
+      }
+    }
+  ];
+}
+
+const { gallery } = Astro.props;
+---
+
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{gallery.title} | Courtside Visuals</title>
+  </head>
+
+  <body>
+    <main class="gallery-page">
+      <a class="back-link" href="/visuals/wnba/">
+        ← BACK TO WNBA VISUALS
+      </a>
+
+      <header class="gallery-header">
+        <p class="eyebrow">COURTSIDE VISUALS / WNBA</p>
+        <h1>{gallery.title}</h1>
+        <p class="gallery-date">{gallery.date}</p>
+        <p class="gallery-credit">
+          PHOTOGRAPHY BY {gallery.photographer.toUpperCase()}
+        </p>
+      </header>
+
+      <section class="gallery-section">
+        <div class="section-heading">
+          <h2>GAME PHOTOGRAPHY</h2>
+          <span>{gallery.photos.length} PHOTOS</span>
+        </div>
+
+        {gallery.photos.length === 0 ? (
+          <div class="empty-state">
+            <img
+              src="/images/cc-watermark.png"
+              alt="Courtside Cousins logo"
+              class="gallery-logo"
+            />
+            <h3>THE GALLERY IS COMING.</h3>
+            <p>Game-day photography will appear here soon.</p>
+          </div>
+        ) : (
+          <div class="photo-grid">
+            {gallery.photos.map((photo) => (
+              <img
+                src={photo.src}
+                alt={photo.alt}
+                loading="lazy"
+              />
+            ))}
+          </div>
+        )}
+      </section>
+
+      <section class="gallery-section">
+        <div class="section-heading">
+          <h2>GAME VIDEOS</h2>
+          <span>{gallery.videos.length} VIDEOS</span>
+        </div>
+
+        <div class="video-empty">
+          Finished game highlights and video features will appear here.
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
+
+<style>
+  .gallery-page {
+    min-height: 100vh;
+    background: #071326;
+    color: #ffffff;
+    padding: 48px 6%;
+  }
+
+  .back-link {
+    color: #77b8ff;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .gallery-header {
+    padding: 70px 0 60px;
+    border-bottom: 1px solid #294261;
+  }
+
+  .eyebrow {
+    color: #65b7ff;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+  }
+
+  .gallery-header h1 {
+    font-size: clamp(2.8rem, 7vw, 6rem);
+    line-height: 1;
+    text-transform: uppercase;
+    margin: 18px 0;
+  }
+
+  .gallery-date {
+    color: #b7c8dd;
+  }
+
+  .gallery-credit {
+    color: #65b7ff;
+    font-size: 0.8rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+  }
+
+  .gallery-section {
+    padding: 55px 0;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 25px;
+  }
+
+  .section-heading h2 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+  }
+
+  .section-heading span {
+    color: #9bb3cf;
+    font-size: 0.8rem;
+  }
+
+  .empty-state,
+  .video-empty {
+    border: 1px solid #294261;
+    border-radius: 18px;
+    background: #0d203a;
+    padding: 65px 24px;
+    text-align: center;
+  }
+
+  .gallery-logo {
+    display: block;
+    width: 130px;
+    max-width: 100%;
+    margin: 0 auto 25px;
+  }
+
+  .empty-state h3 {
+    font-size: 1.6rem;
+    margin-bottom: 10px;
+  }
+
+  .empty-state p,
+  .video-empty {
+    color: #b7c8dd;
+  }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 15px;
+  }
+
+  .photo-grid img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+</style>
