@@ -2,30 +2,50 @@
 ---
 import '../styles/global.css';
 
-const galleries = [
+const collections = [
   {
+    number: '01',
+    label: 'THE MAIN EVENT',
     title: 'WNBA',
-    description: 'Game action, press conferences, and moments from around the league.',
-    image: '/images/wnba-gallery.jpg',
-    category: 'PRO BASKETBALL',
+    subtitle: 'SEASON THROUGH OUR LENS',
+    description:
+      'Game-day photography, unforgettable plays, cinematic highlights, and the stories that define each WNBA season.',
+    icon: '🏀',
+    className: 'wnba',
+    types: ['PHOTOGRAPHY', 'VIDEO'],
   },
   {
-    title: 'Unrivaled',
-    description: 'An up-close look at the players, atmosphere, and culture of Unrivaled.',
-    image: '/images/unrivaled-gallery.jpg',
-    category: '3-ON-3 BASKETBALL',
+    number: '02',
+    label: 'THE NEXT GENERATION',
+    title: 'NEXT UP',
+    subtitle: 'THE FUTURE OF THE GAME',
+    description:
+      'Spotlighting rising talent through player portraits, game photography, senior features, and original video productions.',
+    icon: '⭐',
+    className: 'next',
+    types: ['PHOTOGRAPHY', 'VIDEO'],
   },
   {
-    title: 'Athletes Unlimited',
-    description: 'Original photography from AU Pro Basketball.',
-    image: '/images/au-gallery.jpg',
-    category: 'PRO BASKETBALL',
+    number: '03',
+    label: 'SPECIAL COVERAGE',
+    title: 'BEYOND THE WNBA',
+    subtitle: 'MORE WOMEN’S BASKETBALL',
+    description:
+      'Explore our coverage of Unrivaled, NCAA women’s basketball, and archived Athletes Unlimited moments.',
+    icon: '🎥',
+    className: 'beyond',
+    types: ['PHOTOGRAPHY', 'VIDEO'],
   },
   {
-    title: "NCAA Women's Basketball",
-    description: 'College basketball captured from courtside.',
-    image: '/images/ncaa-gallery.jpg',
-    category: 'COLLEGE BASKETBALL',
+    number: '04',
+    label: 'SIGNATURE WORK',
+    title: "EDITOR'S PICKS",
+    subtitle: 'THE MOMENTS BETWEEN',
+    description:
+      'A curated collection of standout images, memorable highlights, creative edits, and visual storytelling.',
+    icon: '📸',
+    className: 'editors',
+    types: ['PHOTOGRAPHY', 'VIDEO'],
   },
 ];
 ---
@@ -34,96 +54,535 @@ const galleries = [
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Photography | Courtside Cousins</title>
-    <meta name="description" content="Explore original women's basketball photography by Courtside Cousins." />
+    <meta
+      name="description"
+      content="Courtside Visuals: original women's basketball photography, game highlights, player features, and video productions by Courtside Cousins."
+    />
+    <title>Courtside Visuals | Courtside Cousins</title>
+
     <style>
-      .photo-hero { background: #07172d; color: white; padding: 85px 0; }
-      .photo-container { width: min(1180px, 90%); margin: auto; }
-      .photo-eyebrow { color: #65b7ff; font-weight: 800; letter-spacing: 2px; font-size: 13px; }
-      .photo-hero h1 { font-size: clamp(48px, 8vw, 90px); margin: 18px 0; line-height: 1; }
-      .photo-hero p { max-width: 700px; font-size: 18px; line-height: 1.7; }
-      .gallery-section { background: #f3f6fb; padding: 75px 0 100px; }
-      .gallery-heading { border-bottom: 3px solid #173d78; padding-bottom: 18px; margin-bottom: 30px; }
-      .gallery-heading h2 { margin: 0; color: #07172d; font-size: 32px; }
-      .gallery-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 25px; }
-      .gallery-card { display: block; background: white; border: 1px solid #d4dfef; border-radius: 8px; overflow: hidden; text-decoration: none; color: #07172d; transition: transform .2s; }
-      .gallery-card:hover { transform: translateY(-5px); }
-      .gallery-image { width: 100%; height: 270px; object-fit: cover; display: block; background: #173d78; }
-      .gallery-body { padding: 25px; }
-      .gallery-category { color: #2469d8; font-size: 12px; font-weight: 800; letter-spacing: 2px; }
-      .gallery-body h3 { font-size: 27px; margin: 12px 0; }
-      .gallery-body p { line-height: 1.6; }
-      .gallery-link { display: inline-block; margin-top: 15px; color: #2469d8; font-weight: 800; }
-      .photo-footer { background: #07172d; color: white; padding: 45px 0; }
-      @media (max-width: 700px) {
-        .gallery-grid { grid-template-columns: 1fr; }
-        .photo-hero { padding: 65px 0; }
+      :root {
+        --navy: #07172d;
+        --blue: #2469d8;
+        --sky: #65b7ff;
+        --pale: #f3f6fb;
+      }
+
+      .visuals-container {
+        width: min(1180px, 90%);
+        margin-inline: auto;
+      }
+
+      .visuals-topbar {
+        background: var(--navy);
+        color: white;
+        padding: 14px 5%;
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 2px;
+      }
+
+      .visuals-header {
+        background: white;
+        padding: 25px 5%;
+      }
+
+      .visuals-nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .visuals-logo {
+        color: var(--navy);
+        font-size: 24px;
+        font-weight: 900;
+        text-decoration: none;
+      }
+
+      .visuals-logo span {
+        color: var(--blue);
+      }
+
+      .visuals-navlinks {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+      }
+
+      .visuals-navlinks a {
+        color: var(--navy);
+        text-decoration: none;
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 1px;
+      }
+
+      .visuals-navlinks a:hover,
+      .visuals-navlinks a[aria-current="page"] {
+        color: var(--blue);
+      }
+
+      .visuals-hero {
+        background:
+          radial-gradient(
+            circle at 85% 20%,
+            rgba(36, 105, 216, .35),
+            transparent 40%
+          ),
+          linear-gradient(135deg, #07172d, #0e2d55);
+        color: white;
+        padding: 105px 0 115px;
+        overflow: hidden;
+      }
+
+      .visuals-eyebrow {
+        color: var(--sky);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 3px;
+      }
+
+      .visuals-hero h1 {
+        font-size: clamp(52px, 9vw, 112px);
+        font-weight: 950;
+        line-height: .95;
+        letter-spacing: -3px;
+        margin: 22px 0;
+        max-width: 950px;
+      }
+
+      .visuals-hero h1 span {
+        color: var(--sky);
+      }
+
+      .visuals-hero p {
+        max-width: 700px;
+        font-size: 19px;
+        line-height: 1.8;
+        color: #d4e3f6;
+      }
+
+      .visuals-tags {
+        display: flex;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 32px;
+      }
+
+      .visuals-tags span {
+        border: 1px solid rgba(255,255,255,.3);
+        border-radius: 30px;
+        padding: 10px 18px;
+        font-size: 11px;
+        font-weight: 800;
+        letter-spacing: 1.5px;
+      }
+
+      .visuals-intro {
+        background: white;
+        padding: 70px 0;
+      }
+
+      .visuals-intro-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 55px;
+        align-items: center;
+      }
+
+      .visuals-section-label {
+        color: var(--blue);
+        font-size: 12px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      .visuals-intro h2 {
+        color: var(--navy);
+        font-size: clamp(30px, 4vw, 48px);
+        line-height: 1.12;
+        margin: 15px 0;
+      }
+
+      .visuals-intro p {
+        color: #526078;
+        font-size: 17px;
+        line-height: 1.8;
+      }
+
+      .visuals-media-types {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .visuals-type {
+        background: var(--navy);
+        border-radius: 12px;
+        color: white;
+        padding: 30px 20px;
+        min-height: 155px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        gap: 12px;
+      }
+
+      .visuals-type:nth-child(2) {
+        background: var(--blue);
+      }
+
+      .visuals-type-icon {
+        font-size: 34px;
+      }
+
+      .visuals-type strong {
+        font-size: 18px;
+      }
+
+      .visuals-collections {
+        background: var(--pale);
+        padding: 85px 0 105px;
+      }
+
+      .visuals-section-heading {
+        border-bottom: 3px solid #173d78;
+        padding-bottom: 20px;
+        margin-bottom: 35px;
+      }
+
+      .visuals-section-heading h2 {
+        color: var(--navy);
+        font-size: clamp(30px, 4vw, 43px);
+        margin: 8px 0;
+      }
+
+      .visuals-section-heading p {
+        color: #526078;
+        margin-bottom: 0;
+      }
+
+      .visuals-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 25px;
+      }
+
+      .visuals-card {
+        background: white;
+        border: 1px solid #d4dfef;
+        border-radius: 12px;
+        overflow: hidden;
+        transition: transform .2s, box-shadow .2s;
+      }
+
+      .visuals-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 14px 35px rgba(7,23,45,.12);
+      }
+
+      .visuals-card-art {
+        min-height: 255px;
+        padding: 25px;
+        background:
+          linear-gradient(135deg, #0b2445, #2469d8);
+        color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .visuals-card-art.next {
+        background: linear-gradient(135deg, #123e73, #5ba6ed);
+      }
+
+      .visuals-card-art.beyond {
+        background: linear-gradient(135deg, #07172d, #325b91);
+      }
+
+      .visuals-card-art.editors {
+        background: linear-gradient(135deg, #12213c, #597caa);
+      }
+
+      .visuals-card-number {
+        font-size: 13px;
+        font-weight: 900;
+        letter-spacing: 2px;
+        opacity: .85;
+      }
+
+      .visuals-card-icon {
+        font-size: 56px;
+        align-self: center;
+      }
+
+      .visuals-card-art strong {
+        font-size: 12px;
+        letter-spacing: 2px;
+      }
+
+      .visuals-card-body {
+        padding: 28px;
+      }
+
+      .visuals-card-subtitle {
+        color: var(--blue);
+        font-size: 11px;
+        font-weight: 900;
+        letter-spacing: 2px;
+      }
+
+      .visuals-card-body h3 {
+        color: var(--navy);
+        font-size: 30px;
+        margin: 12px 0;
+      }
+
+      .visuals-card-body p {
+        color: #526078;
+        line-height: 1.7;
+        min-height: 85px;
+      }
+
+      .visuals-card-types {
+        display: flex;
+        gap: 8px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .visuals-card-types span {
+        background: #edf4ff;
+        color: #173d78;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 1px;
+        border-radius: 4px;
+        padding: 8px 10px;
+      }
+
+      .visuals-coming-soon {
+        display: inline-block;
+        color: var(--blue);
+        font-size: 13px;
+        font-weight: 900;
+        margin-top: 25px;
+      }
+
+      .visuals-feature {
+        background: #07172d;
+        color: white;
+        padding: 80px 0;
+      }
+
+      .visuals-feature h2 {
+        font-size: clamp(32px, 5vw, 54px);
+        margin: 12px 0;
+      }
+
+      .visuals-feature p {
+        max-width: 720px;
+        line-height: 1.8;
+        color: #d4e3f6;
+        font-size: 17px;
+      }
+
+      .visuals-footer {
+        background: #041020;
+        color: white;
+        padding: 45px 0;
+      }
+
+      .visuals-footer p {
+        color: #b9c9df;
+        line-height: 1.7;
+      }
+
+      @media (max-width: 750px) {
+        .visuals-hero {
+          padding: 75px 0;
+        }
+
+        .visuals-hero h1 {
+          letter-spacing: -1px;
+        }
+
+        .visuals-intro-grid,
+        .visuals-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .visuals-intro-grid {
+          gap: 30px;
+        }
+
+        .visuals-card-body p {
+          min-height: auto;
+        }
+
+        .visuals-navlinks {
+          gap: 15px;
+        }
       }
     </style>
   </head>
+
   <body>
-    <div style="background:#07172d;color:white;padding:14px 5%;font-size:12px;font-weight:800;letter-spacing:2px;">
+    <div class="visuals-topbar">
       INDEPENDENT WOMEN'S BASKETBALL MEDIA
     </div>
 
-    <header style="background:white;padding:28px 5%;">
-      <nav style="display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;">
-        <a href="/" style="font-size:24px;font-weight:900;color:#07172d;text-decoration:none;">
-          COURTSIDE <span style="color:#2469d8;">COUSINS</span>
+    <header class="visuals-header">
+      <nav class="visuals-nav" aria-label="Main navigation">
+        <a class="visuals-logo" href="/">
+          COURTSIDE <span>COUSINS</span>
         </a>
-        <div style="display:flex;gap:24px;flex-wrap:wrap;">
+
+        <div class="visuals-navlinks">
           <a href="/">HOME</a>
           <a href="/#latest">COVERAGE</a>
-          <a href="/photography">PHOTOGRAPHY</a>
+          <a href="/photography" aria-current="page">VISUALS</a>
         </div>
       </nav>
     </header>
 
     <main>
-      <section class="photo-hero">
-        <div class="photo-container">
-          <div class="photo-eyebrow">THROUGH OUR LENS</div>
-          <h1>COURTSIDE PHOTOGRAPHY.</h1>
+      <section class="visuals-hero">
+        <div class="visuals-container">
+          <div class="visuals-eyebrow">
+            PHOTOGRAPHY · FILM · STORYTELLING
+          </div>
+
+          <h1>COURTSIDE<br /><span>VISUALS.</span></h1>
+
           <p>
-            Every game has a story. From unforgettable plays to the moments
-            beyond the final buzzer, explore women's basketball through
-            the Courtside Cousins lens.
+            Every frame tells a story. From the biggest stages in
+            women's basketball to the next generation of athletes,
+            explore the moments, highlights, and original productions
+            captured through the Courtside Cousins lens.
           </p>
+
+          <div class="visuals-tags">
+            <span>GAME PHOTOGRAPHY</span>
+            <span>HIGHLIGHT FILMS</span>
+            <span>PLAYER FEATURES</span>
+            <span>ORIGINAL PRODUCTIONS</span>
+          </div>
         </div>
       </section>
 
-      <section class="gallery-section">
-        <div class="photo-container">
-          <div class="gallery-heading">
-            <h2>EXPLORE OUR GALLERIES</h2>
+      <section class="visuals-intro">
+        <div class="visuals-container visuals-intro-grid">
+          <div>
+            <div class="visuals-section-label">
+              MORE THAN THE FINAL SCORE
+            </div>
+
+            <h2>THE GAME, THROUGH OUR LENS.</h2>
+
+            <p>
+              Courtside Visuals brings together original sports
+              photography and video storytelling. From game-day
+              action and player portraits to cinematic highlight
+              reels and promotional productions, we capture the
+              moments that deserve to be remembered.
+            </p>
           </div>
 
-          <div class="gallery-grid">
-            {galleries.map((gallery) => (
-              <article class="gallery-card">
-                <img
-                  class="gallery-image"
-                  src={gallery.image}
-                  alt={`${gallery.title} photography`}
-                  loading="lazy"
-                />
-                <div class="gallery-body">
-                  <div class="gallery-category">{gallery.category}</div>
-                  <h3>{gallery.title}</h3>
-                  <p>{gallery.description}</p>
-                  <span class="gallery-link">GALLERY COMING SOON →</span>
+          <div class="visuals-media-types">
+            <div class="visuals-type">
+              <span class="visuals-type-icon" aria-hidden="true">📸</span>
+              <strong>PHOTOGRAPHY</strong>
+            </div>
+
+            <div class="visuals-type">
+              <span class="visuals-type-icon" aria-hidden="true">🎬</span>
+              <strong>VIDEO PRODUCTIONS</strong>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="visuals-collections">
+        <div class="visuals-container">
+          <div class="visuals-section-heading">
+            <div class="visuals-section-label">
+              EXPLORE THE COLLECTIONS
+            </div>
+            <h2>OUR WORK. YOUR FRONT-ROW SEAT.</h2>
+            <p>
+              Browse photography, highlights, and original
+              productions across women's basketball.
+            </p>
+          </div>
+
+          <div class="visuals-grid">
+            {collections.map((collection) => (
+              <article class="visuals-card">
+                <div class={`visuals-card-art ${collection.className}`}>
+                  <span class="visuals-card-number">
+                    COLLECTION {collection.number}
+                  </span>
+
+                  <span class="visuals-card-icon" aria-hidden="true">
+                    {collection.icon}
+                  </span>
+
+                  <strong>{collection.label}</strong>
+                </div>
+
+                <div class="visuals-card-body">
+                  <div class="visuals-card-subtitle">
+                    {collection.subtitle}
+                  </div>
+
+                  <h3>{collection.title}</h3>
+                  <p>{collection.description}</p>
+
+                  <div class="visuals-card-types">
+                    {collection.types.map((type) => (
+                      <span>{type}</span>
+                    ))}
+                  </div>
+
+                  <span class="visuals-coming-soon">
+                    COLLECTION COMING SOON →
+                  </span>
                 </div>
               </article>
             ))}
           </div>
         </div>
       </section>
+
+      <section class="visuals-feature">
+        <div class="visuals-container">
+          <div class="visuals-eyebrow">
+            ORIGINAL COURTSIDE COUSINS PRODUCTIONS
+          </div>
+
+          <h2>THE MOMENTS LIVE ON.</h2>
+
+          <p>
+            The final buzzer doesn't end the story. Through
+            photography, game highlights, player spotlights,
+            and original films, we're preserving the moments
+            that make women's basketball unforgettable.
+          </p>
+        </div>
+      </section>
     </main>
 
-    <footer class="photo-footer">
-      <div class="photo-container">
+    <footer class="visuals-footer">
+      <div class="visuals-container">
         <strong>COURTSIDE COUSINS</strong>
-        <p>Independent coverage. Original storytelling. A community connected by the game.</p>
+        <p>
+          Independent coverage. Original storytelling.
+          A community connected by the game.
+        </p>
         <p>© 2026 Courtside Cousins. All rights reserved.</p>
       </div>
     </footer>
