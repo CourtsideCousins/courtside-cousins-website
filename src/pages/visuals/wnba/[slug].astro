@@ -11,7 +11,22 @@ export function getStaticPaths() {
           title: 'Sample WNBA Game Gallery',
           date: '2026 Season',
           photographer: 'Shotxkris',
-          photos: [],
+          
+photos: [
+  {
+    src: '/images/game-coverage.jpg',
+    alt: 'Sample WNBA game coverage photograph'
+  },
+  {
+    src: '/images/featured-coverage.jpg',
+    alt: 'Sample featured basketball coverage photograph'
+  },
+  {
+    src: '/images/community-coverage.jpg',
+    alt: 'Sample community coverage photograph'
+  }
+],
+
           videos: []
         }
       }
@@ -61,15 +76,27 @@ const { gallery } = Astro.props;
             <p>Game-day photography will appear here soon.</p>
           </div>
         ) : (
-          <div class="photo-grid">
-            {gallery.photos.map((photo) => (
-              <img
-                src={photo.src}
-                alt={photo.alt}
-                loading="lazy"
-              />
-            ))}
-          </div>
+          
+<div class="photo-grid">
+  {gallery.photos.map((photo, index) => (
+    <button
+      type="button"
+      class="photo-card"
+      data-photo-index={index}
+      aria-label={`View ${photo.alt}`}
+    >
+      <img
+        src={photo.src}
+        alt={photo.alt}
+        loading="lazy"
+      />
+      <span class="photo-card-label">
+        VIEW PHOTO ↗
+      </span>
+    </button>
+  ))}
+</div>
+
         )}
       </section>
 
@@ -84,6 +111,70 @@ const { gallery } = Astro.props;
         </div>
       </section>
     </main>
+
+<dialog id="photo-viewer" class="photo-viewer" aria-label="Photo viewer">
+  <div class="viewer-content">
+    <button
+      type="button"
+      id="close-viewer"
+      class="viewer-close"
+      aria-label="Close photo viewer"
+    >
+      ✕
+    </button>
+
+    <img
+      id="viewer-image"
+      src=""
+      alt=""
+      class="viewer-image"
+    />
+
+    <div class="viewer-footer">
+      <div>
+        <p id="viewer-caption"></p>
+        <p class="viewer-credit">
+          PHOTO BY {gallery.photographer.toUpperCase()}
+        </p>
+      </div>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  const viewer = document.querySelector<HTMLDialogElement>('#photo-viewer');
+  const viewerImage = document.querySelector<HTMLImageElement>('#viewer-image');
+  const viewerCaption = document.querySelector<HTMLElement>('#viewer-caption');
+  const closeButton = document.querySelector<HTMLButtonElement>('#close-viewer');
+
+  const photoCards = document.querySelectorAll<HTMLButtonElement>('.photo-card');
+
+  photoCards.forEach((card) => {
+    card.addEventListener('click', () => {
+      const photo = card.querySelector('img');
+
+      if (!photo || !viewer || !viewerImage || !viewerCaption) return;
+
+      viewerImage.src = photo.currentSrc || photo.src;
+      viewerImage.alt = photo.alt;
+      viewerCaption.textContent = photo.alt;
+
+      viewer.showModal();
+    });
+  });
+
+  closeButton?.addEventListener('click', () => {
+    viewer?.close();
+  });
+
+  viewer?.addEventListener('click', (event) => {
+    if (event.target === viewer) {
+      viewer.close();
+    }
+  });
+</script>
+
+
   </body>
 </html>
 
@@ -185,10 +276,153 @@ const { gallery } = Astro.props;
     gap: 15px;
   }
 
-  .photo-grid img {
-    width: 100%;
-    aspect-ratio: 4 / 3;
-    object-fit: cover;
-    border-radius: 10px;
+  
+.photo-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 1px solid #294261;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #0d203a;
+  cursor: pointer;
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.photo-card:hover {
+  transform: translateY(-4px);
+  border-color: #65b7ff;
+}
+
+.photo-card:focus-visible {
+  outline: 3px solid #65b7ff;
+  outline-offset: 3px;
+}
+
+.photo-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.photo-card-label {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 24px 14px 12px;
+  background: linear-gradient(
+    transparent,
+    rgba(4, 13, 29, 0.9)
+  );
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.photo-card:hover .photo-card-label,
+.photo-card:focus-visible .photo-card-label {
+  opacity: 1;
+}
+
+/* Full-screen photography viewer */
+
+.photo-viewer {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: rgba(3, 10, 22, 0.97);
+  color: #ffffff;
+}
+
+.photo-viewer::backdrop {
+  background: rgba(0, 0, 0, 0.9);
+}
+
+.viewer-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  min-height: 100%;
+  padding: 65px 24px 30px;
+  box-sizing: border-box;
+}
+
+.viewer-close {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 44px;
+  height: 44px;
+  border: 1px solid #49617d;
+  border-radius: 50%;
+  background: #102743;
+  color: #ffffff;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.viewer-close:hover {
+  background: #2469d8;
+}
+
+.viewer-image {
+  display: block;
+  max-width: 100%;
+  max-height: 75vh;
+  object-fit: contain;
+  border-radius: 8px;
+}
+
+.viewer-footer {
+  width: 100%;
+  max-width: 1100px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#viewer-caption {
+  margin: 0 0 8px;
+  color: #ffffff;
+  font-size: 1rem;
+}
+
+.viewer-credit {
+  margin: 0;
+  color: #65b7ff;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+@media (max-width: 600px) {
+  .viewer-content {
+    padding: 75px 15px 25px;
   }
+
+  .viewer-image {
+    max-height: 65vh;
+  }
+
+  .viewer-close {
+    right: 15px;
+  }
+}
+
 </style>
