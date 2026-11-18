@@ -279,6 +279,26 @@ const collections = [
         transition: transform .2s, box-shadow .2s;
       }
 
+/* Make the WNBA collection clickable */
+.visuals-card {
+  position: relative;
+}
+
+.visuals-card-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+.visuals-card:has(.visuals-card-overlay) {
+  cursor: pointer;
+}
+
+.visuals-card:has(.visuals-card-overlay):focus-within {
+  outline: 3px solid #2469d8;
+  outline-offset: 3px;
+}
+
       .visuals-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 14px 35px rgba(7,23,45,.12);
@@ -522,6 +542,13 @@ const collections = [
           <div class="visuals-grid">
             {collections.map((collection) => (
               <article class="visuals-card">
+{collection.title === 'WNBA' && (
+  <a
+    class="visuals-card-overlay"
+    href="/visuals/wnba/"
+    aria-label="Explore WNBA photography and videos"
+  ></a>
+)}
                 <div class={`visuals-card-art ${collection.className}`}>
                   <span class="visuals-card-number">
                     COLLECTION {collection.number}
@@ -549,8 +576,10 @@ const collections = [
                   </div>
 
                   <span class="visuals-coming-soon">
-                    COLLECTION COMING SOON →
-                  </span>
+  {collection.title === 'WNBA'
+    ? 'EXPLORE WNBA VISUALS →'
+    : 'COLLECTION COMING SOON →'}
+</span>
                 </div>
               </article>
             ))}
