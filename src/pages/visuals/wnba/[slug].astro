@@ -77,6 +77,42 @@ const { gallery } = Astro.props;
           </div>
         ) : (
           
+
+<div class="photo-selection-toolbar">
+  <button
+    type="button"
+    id="toggle-selection"
+    class="selection-toggle"
+    aria-pressed="false"
+  >
+    SELECT PHOTOS
+  </button>
+
+  <div class="selection-actions" id="selection-actions" hidden>
+    <span id="selection-count" aria-live="polite">
+      0 PHOTOS SELECTED
+    </span>
+
+    <button
+      type="button"
+      id="clear-selection"
+      class="selection-clear"
+    >
+      CLEAR SELECTION
+    </button>
+
+    <button
+      type="button"
+      id="download-selected"
+      class="selection-download"
+      disabled
+      title="Downloads will be available when watermarked photos are connected"
+    >
+      DOWNLOAD SELECTED ↓
+    </button>
+  </div>
+</div>
+
 <div class="photo-grid">
   {gallery.photos.map((photo, index) => (
     <button
@@ -90,7 +126,15 @@ const { gallery } = Astro.props;
         alt={photo.alt}
         loading="lazy"
       />
-      <span class="photo-card-label">
+
+<span
+  class="photo-selection-indicator"
+  aria-hidden="true"
+>
+  <span class="photo-selection-check">✓</span>
+</span>
+     
+<span class="photo-card-label">
         VIEW PHOTO ↗
       </span>
     </button>
@@ -149,19 +193,97 @@ const { gallery } = Astro.props;
 
   const photoCards = document.querySelectorAll<HTMLButtonElement>('.photo-card');
 
+  
+const selectionToggle = document.querySelector<HTMLButtonElement>('#toggle-selection');
+const selectionActions = document.querySelector<HTMLElement>('#selection-actions');
+const selectionCount = document.querySelector<HTMLElement>('#selection-count');
+const clearSelection = document.querySelector<HTMLButtonElement>('#clear-selection');
+const photoGrid = document.querySelector<HTMLElement>('.photo-grid');
+
+let selectionMode = false;
+const selectedPhotos = new Set<string>();
+
+function updateSelection() {
   photoCards.forEach((card) => {
-    card.addEventListener('click', () => {
+    const photoIndex = card.dataset.photoIndex || '';
+
+    card.classList.toggle(
+      'is-selected',
+      selectedPhotos.has(photoIndex)
+    );
+
+    if (selectionMode) {
+      card.setAttribute(
+        'aria-label',
+        `${selectedPhotos.has(photoIndex) ? 'Deselect' : 'Select'} photo ${Number(photoIndex) + 1}`
+      );
+      card.setAttribute('aria-pressed', String(selectedPhotos.has(photoIndex)));
+    } else {
+      card.removeAttribute('aria-pressed');
       const photo = card.querySelector('img');
-
-      if (!photo || !viewer || !viewerImage || !viewerCaption) return;
-
-      viewerImage.src = photo.currentSrc || photo.src;
-      viewerImage.alt = photo.alt;
-      viewerCaption.textContent = photo.alt;
-
-      viewer.showModal();
-    });
+      card.setAttribute('aria-label', `View ${photo?.alt || 'photo'}`);
+    }
   });
+
+  if (selectionCount) {
+    selectionCount.textContent =
+      `${selectedPhotos.size} PHOTO${selectedPhotos.size === 1 ? '' : 'S'} SELECTED`;
+  }
+}
+
+selectionToggle?.addEventListener('click', () => {
+  selectionMode = !selectionMode;
+
+  selectionToggle.setAttribute('aria-pressed', String(selectionMode));
+  selectionToggle.textContent = selectionMode
+    ? 'DONE SELECTING'
+    : 'SELECT PHOTOS';
+
+  photoGrid?.classList.toggle('selection-mode', selectionMode);
+
+  if (selectionActions) {
+    selectionActions.hidden = !selectionMode;
+  }
+
+  if (!selectionMode) {
+    selectedPhotos.clear();
+  }
+
+  updateSelection();
+});
+
+clearSelection?.addEventListener('click', () => {
+  selectedPhotos.clear();
+  updateSelection();
+});
+
+photoCards.forEach((card) => {
+  card.addEventListener('click', () => {
+    const photoIndex = card.dataset.photoIndex || '';
+
+    if (selectionMode) {
+      if (selectedPhotos.has(photoIndex)) {
+        selectedPhotos.delete(photoIndex);
+      } else {
+        selectedPhotos.add(photoIndex);
+      }
+
+      updateSelection();
+      return;
+    }
+
+    const photo = card.querySelector('img');
+
+    if (!photo || !viewer || !viewerImage || !viewerCaption) return;
+
+    viewerImage.src = photo.currentSrc || photo.src;
+    viewerImage.alt = photo.alt;
+    viewerCaption.textContent = photo.alt;
+
+    viewer.showModal();
+  });
+});
+
 
   closeButton?.addEventListener('click', () => {
     viewer?.close();
@@ -422,6 +544,130 @@ const { gallery } = Astro.props;
 
   .viewer-close {
     right: 15px;
+  }
+}
+
+/* Photo selection toolbar */
+
+.photo-selection-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.selection-toggle,
+.selection-clear,
+.selection-download {
+  padding: 12px 18px;
+  border: 1px solid #3973b5;
+  border-radius: 8px;
+  background: #102743;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+}
+
+.selection-toggle:hover,
+.selection-clear:hover {
+  background: #2469d8;
+}
+
+.selection-toggle[aria-pressed="true"] {
+  background: #2469d8;
+  border-color: #65b7ff;
+}
+
+.selection-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 14px;
+}
+
+.selection-actions[hidden] {
+  display: none;
+}
+
+#selection-count {
+  color: #b7c8dd;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.selection-download {
+  background: #2469d8;
+  border-color: #2469d8;
+}
+
+.selection-download:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* Selection indicators on photographs */
+
+.photo-selection-indicator {
+  display: none;
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 30px;
+  height: 30px;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #ffffff;
+  border-radius: 6px;
+  background: rgba(4, 13, 29, 0.75);
+  color: transparent;
+  font-size: 1.1rem;
+  font-weight: 900;
+  z-index: 2;
+}
+
+.photo-grid.selection-mode .photo-selection-indicator {
+  display: flex;
+}
+
+.photo-card.is-selected {
+  border-color: #65b7ff;
+  box-shadow: 0 0 0 3px rgba(101, 183, 255, 0.35);
+}
+
+.photo-card.is-selected .photo-selection-indicator {
+  background: #2469d8;
+  color: #ffffff;
+}
+
+.photo-grid.selection-mode .photo-card-label {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.photo-grid.selection-mode .photo-card {
+  cursor: pointer;
+}
+
+.photo-grid.selection-mode .photo-card:focus-visible {
+  outline: 3px solid #65b7ff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .photo-selection-toolbar,
+  .selection-actions {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .selection-toggle,
+  .selection-clear,
+  .selection-download {
+    width: 100%;
   }
 }
 
